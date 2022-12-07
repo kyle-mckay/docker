@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    hostname: portainer
+    network_mode: bridge
+    environment:
+      - PUID=1000
+      - PGID=100
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    volumes:
+      - /volume1/docker/portainer/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9000:9000
+    restart: always

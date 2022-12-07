@@ -1,0 +1,88 @@
+version: '3'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "MyG4Q2miMQCBbx"
+      DB_MYSQL_NAME: "npm"
+    volumes:
+      - /e/docker/proxy/app/data:/data
+      - /e/docker/proxy/app/letsencrypt:/etc/letsencrypt
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'MyG4Q2miMQCBbx'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'MyG4Q2miMQCBbx'
+    volumes:
+      - /e/docker/proxy/db/data/mysql:/var/lib/mysql
+# #############
+# version: '3'
+# services:
+#   npm-app:
+#     image: jc21/nginx-proxy-manager:latest
+#     restart: always
+#     ports:
+#       - "80:80"
+#       - "81:81"
+#       - "443:443"
+#     environment:
+#       - DB_MYSQL_HOST=npm-db
+#       - DB_MYSQL_PORT=3306
+#       - DB_MYSQL_USER=npm
+#       - DB_MYSQL_PASSWORD=MyG4Q2miMQCBbx
+#       - DB_MYSQL_NAME=npm
+#     volumes:
+#       - /e/npm-data:/data
+#       - /e/npm-ssl:/etc/letsencrypt
+#       - /e/nginx_certs:/etc/nginx/certs
+#       - /e/nginx_vhost:/etc/nginx/vhost.d
+#       - /e/nginx_html:/usr/share/nginx/html
+#       - /var/run/docker.sock:/tmp/docker.sock:ro
+#     networks:
+#       - proxynet
+
+#   npm-db:
+#     image: jc21/mariadb-aria:latest
+#     restart: always
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=QZfC3cD3bhXjdV
+#       - MYSQL_DATABASE=npm
+#       - MYSQL_USER=npm
+#       - MYSQL_PASSWORD=MyG4Q2miMQCBbx
+#     volumes:
+#       - /e/npm-db:/var/lib/mysql
+#       - /e/nginx_certs:/etc/nginx/certs
+#       - /e/nginx_vhost:/etc/nginx/vhost.d
+#       - /e/nginx_html:/usr/share/nginx/html
+#       - /var/run/docker.sock:/tmp/docker.sock:ro
+#     networks:
+#       - proxynet
+
+#   nginx-proxy-letsencrypt:
+#     image: jrcs/letsencrypt-nginx-proxy-companion
+#     restart: always
+#     volumes:
+#       - /e/nginx_certs:/etc/nginx/certs
+#       - /e/nginx_vhost:/etc/nginx/vhost.d
+#       - /e/nginx_html:/usr/share/nginx/html
+#       - /e/letsencrypt_acme:/etc/acme.sh
+#       - /var/run/docker.sock:/var/run/docker.sock:ro
+
+# volumes:
+#   nginx_certs:
+#   nginx_vhost:
+#   nginx_html:
+#   letsencrypt_acme:
+
+# networks:
+#   proxynet:
+#     external: true
