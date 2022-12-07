@@ -1,4 +1,9 @@
 version: "2.1"
+networks:
+  proxy_default:
+    # add this if the network is already existing!
+    external: true
+
 services:
   portainer:
     image: portainer/portainer-ce:latest
@@ -11,7 +16,7 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     volumes:
-      - /volume1/docker/portainer/data:/data
+      - /e/docker/portainer/data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 9000:9000

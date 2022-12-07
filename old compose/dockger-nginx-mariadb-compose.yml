@@ -1,0 +1,70 @@
+version: '3'
+
+networks:
+  frontend:
+    # add this if the network is already existing!
+    # external: true
+  backend:
+
+services:
+
+  nextcloud-app:
+    image: nextcloud
+    restart: always
+    volumes:
+      - /e/nextcloud:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=MyG4Q2miMQCBbx
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=nextcloud-db
+    networks:
+      - frontend
+      - backend
+
+  nextcloud-db:
+    image: mariadb
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    volumes:
+      - /e/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=QZfC3cD3bhXjdV
+      - MYSQL_PASSWORD=MyG4Q2miMQCBbx
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    networks:
+      - backend
+
+  npm-app:
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    environment:
+      - DB_MYSQL_HOST=npm-db
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_USER=npm
+      - DB_MYSQL_PASSWORD=MyG4Q2miMQCBbx
+      - DB_MYSQL_NAME=npm
+    volumes:
+      - /e/npm-data:/data
+      - /e/npm-ssl:/etc/letsencrypt
+    networks:
+      - frontend
+      - backend
+
+  npm-db:
+    image: jc21/mariadb-aria:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=QZfC3cD3bhXjdV
+      - MYSQL_DATABASE=npm
+      - MYSQL_USER=npm
+      - MYSQL_PASSWORD=MyG4Q2miMQCBbx
+    volumes:
+      - /e/npm-db:/var/lib/mysql
+    networks:
+      - backend
