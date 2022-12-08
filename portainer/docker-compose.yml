@@ -1,9 +1,7 @@
 version: "2.1"
 networks:
-  bridge:
+  frontend:
     # add this if the network is already existing!
-    external: true
-  proxynet:
     external: true
 
 services:
@@ -22,4 +20,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 9000:9000
+    networks:
+      - frontend
     restart: always

@@ -1,9 +1,7 @@
 version: "1"
 networks:
-  bridge:
+  frontend:
     # add this if the network is already existing!
-    external: true
-  proxynet:
     external: true
 
 services:
@@ -20,8 +18,8 @@ services:
     ports:
       - 5812:80
     networks:
-      - proxynet
-      - bridge
+      - frontend
+      
     restart: always
 
 #

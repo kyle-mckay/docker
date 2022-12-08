@@ -4,10 +4,17 @@
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 b_install_docker=true #if true then docker and each compose will attempt to install on execution
 b_compose_nextcloud=false
+s_compose_nextcould="${SCRIPT_DIR}/nextcould/docker-compose.yml"
 b_compose_portainer=true
-b_compose_radarr=true
-b_compose_sonarr=true
+s_compose_portainer="${SCRIPT_DIR}/portainer/docker-compose.yml"
+b_compose_radarrsonarr=true
+s_compose_radarrsonarr="${SCRIPT_DIR}/radarr-sonarr/docker-compose.yml"
 b_compose_qbittorrent=true
+s_compose_qbittorrent="${SCRIPT_DIR}/qbittorrent/docker-compose.yml"
+b_compose_organizr=true
+s_compose_organizr="${SCRIPT_DIR}/organizr/docker-compose.yml"
+b_compose_nginx=true
+s_compose_nginx="${SCRIPT_DIR}/proxy/docker-compose.yml"
 b_compose_plex=true
 
 #region functions
@@ -57,6 +64,10 @@ docker_helloworld() {
         b_testdocker=false
     fi
 }
+docker_compose() {
+    addtolog "INFO: compose is set to true - running docker compose for path $1"
+    sudo docker compose -f $1 up -d #$1 referrs to path passed to each compose file in settings
+}
 #endregion
 test-network
 #region docker
@@ -70,7 +81,15 @@ if $b_install_docker -eq true; then
     #region docker compose
     if $b_testdocker -eq true; then
         # begin compose setups
-        
+        addtolog "INFO: Creating shared frontend network"
+        sudo docker network create -d bridge frontend #create shared frontend network to be used by all compose stacks
+        addtolog "ERROR: NEED TO BUILD A NETWORK CREATION CONFIRMATION CHECK"
+        # radarr-sonarr
+        if $b_compose_radarrsonarr -eq true; then
+            docker_compose $s_compose_radarrsonarr
+        else
+            addtolog "INFO: radarr-sonarr compose is set to false"
+        fi 
     else
         addtolog "WARNING: Hello world failed to test, cannot proceed with docker compse"
     fi

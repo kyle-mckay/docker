@@ -1,9 +1,8 @@
 version: '3'
 networks:
-  bridge:
+  frontend:
     # add this if the network is already existing!
     external: true
-  proxynet:
 
 services:
   app:
@@ -22,7 +21,7 @@ services:
       - /e/docker/proxy/app/data:/data
       - /e/docker/proxy/app/letsencrypt:/etc/letsencrypt
     networks:
-      - proxynet
+      - frontend
     
   db:
     image: 'jc21/mariadb-aria:latest'
@@ -34,7 +33,7 @@ services:
     volumes:
       - /e/docker/proxy/db/data/mysql:/var/lib/mysql
     networks:
-      - proxynet
+      - frontend
 # #############
 # version: '3'
 # services:
@@ -59,7 +58,7 @@ services:
 #       - /e/nginx_html:/usr/share/nginx/html
 #       - /var/run/docker.sock:/tmp/docker.sock:ro
 #     networks:
-#       - proxynet
+#       - frontend
 
 #   npm-db:
 #     image: jc21/mariadb-aria:latest
@@ -76,7 +75,7 @@ services:
 #       - /e/nginx_html:/usr/share/nginx/html
 #       - /var/run/docker.sock:/tmp/docker.sock:ro
 #     networks:
-#       - proxynet
+#       - frontend
 
 #   nginx-proxy-letsencrypt:
 #     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -95,5 +94,5 @@ services:
 #   letsencrypt_acme:
 
 # networks:
-#   proxynet:
+#   frontend:
 #     external: true
