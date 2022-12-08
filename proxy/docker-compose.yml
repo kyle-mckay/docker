@@ -16,7 +16,7 @@ services:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
-      DB_MYSQL_PASSWORD: "MyG4Q2miMQCBbx"
+      DB_MYSQL_PASSWORD: "npmpsw"
       DB_MYSQL_NAME: "npm"
     volumes:
       - /e/docker/proxy/app/data:/data
@@ -27,10 +27,10 @@ services:
   db:
     image: 'jc21/mariadb-aria:latest'
     environment:
-      MYSQL_ROOT_PASSWORD: 'MyG4Q2miMQCBbx'
+      MYSQL_ROOT_PASSWORD: 'npmpsw'
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'MyG4Q2miMQCBbx'
+      MYSQL_PASSWORD: 'npmpsw'
     volumes:
       - /e/docker/proxy/db/data/mysql:/var/lib/mysql
     networks:
@@ -49,7 +49,7 @@ services:
 #       - DB_MYSQL_HOST=npm-db
 #       - DB_MYSQL_PORT=3306
 #       - DB_MYSQL_USER=npm
-#       - DB_MYSQL_PASSWORD=MyG4Q2miMQCBbx
+#       - DB_MYSQL_PASSWORD=npmpsw
 #       - DB_MYSQL_NAME=npm
 #     volumes:
 #       - /e/npm-data:/data
@@ -68,7 +68,7 @@ services:
 #       - MYSQL_ROOT_PASSWORD=QZfC3cD3bhXjdV
 #       - MYSQL_DATABASE=npm
 #       - MYSQL_USER=npm
-#       - MYSQL_PASSWORD=MyG4Q2miMQCBbx
+#       - MYSQL_PASSWORD=npmpsw
 #     volumes:
 #       - /e/npm-db:/var/lib/mysql
 #       - /e/nginx_certs:/etc/nginx/certs
