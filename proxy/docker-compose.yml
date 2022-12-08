@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  app:
+  nginx-app:
     image: 'jc21/nginx-proxy-manager:latest'
     ports:
       - '80:80'
@@ -23,7 +23,7 @@ services:
     networks:
       - frontend
     
-  db:
+  nginx-db:
     image: 'jc21/mariadb-aria:latest'
     environment:
       MYSQL_ROOT_PASSWORD: 'npmpsw'
