@@ -30,10 +30,29 @@ test-network() {
 addtolog() {
     #adds the passed string to a log file with a timestamp prefix
     timestamp=$(date "+%Y/%m/%d %H:%M:%S.%3N") #add %3N as we want millisecond too
+    # High Intensity backgrounds
+    On_IBlack='\033[0;100m'   # Black
+    On_IRed='\033[0;101m'     # Red
+    On_IGreen='\033[0;102m'   # Green
+    On_IYellow='\033[0;103m'  # Yellow
+    On_IBlue='\033[0;104m'    # Blue
+    On_IPurple='\033[0;105m'  # Purple
+    On_ICyan='\033[0;106m'    # Cyan
+    On_IWhite='\033[0;107m'   # White
+    # add to log
     echo "$timestamp | $1" >>log.txt           # add to log
+    #echo with colors based on level
+    if [[ $1 == INFO:* ]]; then  # True if $a starts with a "INFO:" (wildcard matching).
+        echo -e "${On_IWhite}$1" # echo with white background
+    elif [[ $1 == WARNING:* ]]; then # True if $a starts with a "WARNING:" (wildcard matching).
+        echo -e "${On_IYellow}$1" #echo with yellow background
+    elif [[ $1 == ERROR:* ]]; then # True if $a starts with a "ERROR:" (wildcard matching).
+        echo -e "${On_IRed}$1" #echo with red background
+    fi
+    echo -e "I ${RED}love${NC} Stack Overflow"
     echo $1
 }
-docker_install() {
+install_docker() {
     #install docker
     #https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
     #set up repository
@@ -82,10 +101,11 @@ test-network
 #region docker
 if $b_install_docker -eq true; then
     addtolog "INFO: Installing Docker"
-    #test docker
     #confirm if docker is installed already before proceeding
-    #install docker
-    docker_install
+    # if docker does not exist
+        #install docker
+        install_docker
+    #test docker
     docker_helloworld
     #region docker compose
     if $b_testdocker -eq true; then
