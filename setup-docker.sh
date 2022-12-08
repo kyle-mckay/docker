@@ -30,26 +30,27 @@ test-network() {
 addtolog() {
     #adds the passed string to a log file with a timestamp prefix
     timestamp=$(date "+%Y/%m/%d %H:%M:%S.%3N") #add %3N as we want millisecond too
-    # High Intensity backgrounds
-    On_IBlack='\033[0;100m'   # Black
-    On_IRed='\033[0;101m'     # Red
-    On_IGreen='\033[0;102m'   # Green
-    On_IYellow='\033[0;103m'  # Yellow
-    On_IBlue='\033[0;104m'    # Blue
-    On_IPurple='\033[0;105m'  # Purple
-    On_ICyan='\033[0;106m'    # Cyan
-    On_IWhite='\033[0;107m'   # White
-    NC='\033[0m' # No Color
     # add to log
     echo "$timestamp | $1" >>log.txt           # add to log
-    #echo with colors based on level
-    if [[ $1 == INFO:* ]]; then  # True if $a starts with a "INFO:" (wildcard matching).
-        echo -e "${On_IWhite}$1" # echo with white background
-    elif [[ $1 == WARNING:* ]]; then # True if $a starts with a "WARNING:" (wildcard matching).
-        echo -e "${On_IYellow}$1" #echo with yellow background
-    elif [[ $1 == ERROR:* ]]; then # True if $a starts with a "ERROR:" (wildcard matching).
-        echo -e "${On_IRed}$1" #echo with red background
-    fi
+    echo $1
+    # #echo with colors based on level
+    #     # High Intensity backgrounds
+    #     On_IBlack='\033[0;100m'   # Black
+    #     On_IRed='\033[0;101m'     # Red
+    #     On_IGreen='\033[0;102m'   # Green
+    #     On_IYellow='\033[0;103m'  # Yellow
+    #     On_IBlue='\033[0;104m'    # Blue
+    #     On_IPurple='\033[0;105m'  # Purple
+    #     On_ICyan='\033[0;106m'    # Cyan
+    #     On_IWhite='\033[0;107m'   # White
+    #     NC='\033[0m' # No Color
+    # if [[ $1 == INFO:* ]]; then  # True if $a starts with a "INFO:" (wildcard matching).
+    #     echo -e "${On_IWhite}$1" # echo with white background
+    # elif [[ $1 == WARNING:* ]]; then # True if $a starts with a "WARNING:" (wildcard matching).
+    #     echo -e "${On_IYellow}$1" #echo with yellow background
+    # elif [[ $1 == ERROR:* ]]; then # True if $a starts with a "ERROR:" (wildcard matching).
+    #     echo -e "${On_IRed}$1" #echo with red background
+    # fi
 }
 install_docker() {
     #install docker
