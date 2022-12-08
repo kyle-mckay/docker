@@ -1,7 +1,9 @@
 version: "2.1"
 networks:
-  proxy_default:
+  bridge:
     # add this if the network is already existing!
+    external: true
+  proxynet:
     external: true
 
 services:

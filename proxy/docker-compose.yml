@@ -1,4 +1,10 @@
 version: '3'
+networks:
+  bridge:
+    # add this if the network is already existing!
+    external: true
+  proxynet:
+
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -15,6 +21,9 @@ services:
     volumes:
       - /e/docker/proxy/app/data:/data
       - /e/docker/proxy/app/letsencrypt:/etc/letsencrypt
+    networks:
+      - proxynet
+    
   db:
     image: 'jc21/mariadb-aria:latest'
     environment:
@@ -24,6 +33,8 @@ services:
       MYSQL_PASSWORD: 'MyG4Q2miMQCBbx'
     volumes:
       - /e/docker/proxy/db/data/mysql:/var/lib/mysql
+    networks:
+      - proxynet
 # #############
 # version: '3'
 # services:

@@ -1,7 +1,9 @@
 version: "1"
 networks:
-  proxy_default:
+  bridge:
     # add this if the network is already existing!
+    external: true
+  proxynet:
     external: true
 
 services:
@@ -18,7 +20,8 @@ services:
     ports:
       - 5812:80
     networks:
-      - proxy_default
+      - proxynet
+      - bridge
     restart: always
 
 #

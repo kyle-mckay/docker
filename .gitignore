@@ -2,3 +2,6 @@
 organizr/config/*
 proxy/app/*
 proxy/db/*
+radarr-sonarr/jackett/*
+radarr-sonarr/radarr/*
+radarr-sonarr/sonarr/*
