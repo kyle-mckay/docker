@@ -12,8 +12,7 @@ b_compose_plex=true
 
 #region functions
 test-network() {
-    ping -q -c1 google.com &>/dev/null && b_online=true || b_online=false
-    if !online; then
+    if nc -zw1 google.com 443; then
         addtolog "INFO: Device is online"
     else
         addtolog "ERROR: Device is offline - aborting"
