@@ -39,6 +39,7 @@ addtolog() {
     On_IPurple='\033[0;105m'  # Purple
     On_ICyan='\033[0;106m'    # Cyan
     On_IWhite='\033[0;107m'   # White
+    NC='\033[0m' # No Color
     # add to log
     echo "$timestamp | $1" >>log.txt           # add to log
     #echo with colors based on level
@@ -49,8 +50,6 @@ addtolog() {
     elif [[ $1 == ERROR:* ]]; then # True if $a starts with a "ERROR:" (wildcard matching).
         echo -e "${On_IRed}$1" #echo with red background
     fi
-    echo -e "I ${RED}love${NC} Stack Overflow"
-    echo $1
 }
 install_docker() {
     #install docker
