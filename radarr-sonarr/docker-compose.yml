@@ -5,11 +5,22 @@ networks:
   frontend:
     # add this if the network is already existing!
     external: true
+  dockervlan:
+    name: arrvlan
+    driver: macvlan # macvlan used to allow container access to host applications
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: "10.0.0.0/24"
+          ip_range: "10.0.0.254/26"
+          gateway: "10.0.0.1"
 
 services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    hostname: sonarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -19,15 +30,15 @@ services:
       - /d:/media # My Media HD
     networks:
       - frontend
-      
-    ports:
-      - 8989:8989
+    #ports:
+    #  - 8989:8989
     restart: unless-stopped
 
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
+    hostname: radarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -37,14 +48,14 @@ services:
       - /d:/media # My Media HD
     networks:
       - frontend
-      
-    ports:
-      - 7878:7878
+    #ports:
+    #  - 7878:7878
     restart: unless-stopped
     
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
+    hostname: jackett
     environment:
       - PUID=1000
       - PGID=1000
@@ -54,8 +65,7 @@ services:
       - /e/docker/radarr-sonarr/jackett/config:/config
       - /d/downloads:/downloads
     networks:
-      - frontend
-      
-    ports:
-      - 9117:9117
+      - frontend  
+    #ports:
+    #  - 9117:9117
     restart: unless-stopped

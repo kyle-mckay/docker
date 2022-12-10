@@ -11,6 +11,8 @@ services:
       - '80:80'
       - '81:81'
       - '443:443'
+    container_name: nginx
+    hostname: nginx
     environment:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
@@ -30,6 +32,8 @@ services:
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npmpsw'
+    container_name: nginx-db
+    hostname: nginx-db
     volumes:
       - /e/docker/proxy/db/data/mysql:/var/lib/mysql
     networks:
