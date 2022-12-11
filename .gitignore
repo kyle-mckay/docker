@@ -1,7 +1,7 @@
 
 organizr/config/*
-proxy/app/*
-proxy/db/*
+proxy/app*/*
+proxy/db*/*
 portainer/data/*
 flame/data/*
 radarrsonarr/jackett/*

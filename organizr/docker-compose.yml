@@ -15,4 +15,4 @@ services:
       - 5817:80
     networks:
       - frontend
-    restart: always
+    restart: unless-stopped

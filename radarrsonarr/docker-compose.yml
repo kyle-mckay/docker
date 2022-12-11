@@ -14,10 +14,12 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=UTC
     volumes:
-      - /e/docker/radarr-sonarr/sonarr/config:/config
-      - /d:/media # My Media HD
+      - /e/docker/radarrsonarr/sonarr/config:/config
+      - /d/anime:/anime # My Media HD
+      - /d/tv:/tv
+      - /d/downloads:/downloads
     networks:
       - frontend
     ports:
@@ -32,10 +34,11 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=UTC
     volumes:
-      - /e/docker/radarr-sonarr/radarr/config:/config
-      - /d:/media # My Media HD
+      - /e/docker/radarrsonarr/radarr/config:/config
+      - /d/anime:/movies # My Media HD
+      - /d/downloads:/downloads
     networks:
       - frontend
     ports:
@@ -49,11 +52,10 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=UTC
       - AUTO_UPDATE=false #optional
     volumes:
-      - /e/docker/radarr-sonarr/jackett/config:/config
-      - /d/downloads:/downloads
+      - /e/docker/radarrsonarr/jackett/config:/config
     networks:
       - frontend  
     ports:
