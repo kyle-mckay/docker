@@ -1,4 +1,4 @@
-version: "1"
+version: "3"
 networks:
   frontend:
     # add this if the network is already existing!
@@ -9,24 +9,10 @@ services:
     image: organizr/organizr:latest
     container_name: organizr
     hostname: organizr
-    network_mode: bridge
-    # environment:
-    #   - PUID=1000
-    #   - PGID=100
     volumes:
       - /e/docker/organizr/config:/config
     ports:
-      - 5812:80
+      - 5817:80
     networks:
       - frontend
-      
     restart: always
-
-#
-# docker create \
-
-#   -e PGID=<gid> -e PUID=<uid>  \
-#   -p 80:80 \
-#   -e fpm="false" \ # optional
-#   -e branch="v2-master" \ # optional
-#   organizr/organizr

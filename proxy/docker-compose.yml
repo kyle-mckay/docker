@@ -5,6 +5,9 @@ networks:
     external: true
 
 services:
+# default account:
+  # admin@example.com
+  # changeme
   nginx-app:
     image: 'jc21/nginx-proxy-manager:latest'
     ports:
@@ -14,7 +17,7 @@ services:
     container_name: nginx
     hostname: nginx
     environment:
-      DB_MYSQL_HOST: "db"
+      DB_MYSQL_HOST: "nginx-db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
       DB_MYSQL_PASSWORD: "npmpsw"
@@ -24,6 +27,8 @@ services:
       - /e/docker/proxy/app/letsencrypt:/etc/letsencrypt
     networks:
       - frontend
+    extra_hosts:
+    - "karlms:10.0.0.229"
     
   nginx-db:
     image: 'jc21/mariadb-aria:latest'

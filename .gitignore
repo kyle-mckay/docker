@@ -2,6 +2,8 @@
 organizr/config/*
 proxy/app/*
 proxy/db/*
+portainer/data/*
+flame/data/*
 radarr-sonarr/jackett/*
 radarr-sonarr/radarr/*
 radarr-sonarr/sonarr/*
