@@ -13,10 +13,13 @@ b_compose_radarrsonarr=true
 s_compose_radarrsonarr="${SCRIPT_DIR}/radarr-sonarr/docker-compose.yml"
 b_compose_qbittorrent=false
 s_compose_qbittorrent="${SCRIPT_DIR}/qbittorrent/docker-compose.yml"
-b_compose_organizr=true
+b_compose_flame=true
+s_compose_flame="${SCRIPT_DIR}/flame/docker-compose.yml"
+b_compose_organizr=false
 s_compose_organizr="${SCRIPT_DIR}/organizr/docker-compose.yml"
 b_compose_plex=false
 s_compose_plex="${SCRIPT_DIR}/plex/docker-compose.yml"
+
 
 #region functions
 test-network() {
@@ -150,6 +153,14 @@ if $b_install_docker -eq true; then
             compose_verify
         else
             addtolog "INFO: plex compose is set to false"
+        fi 
+        # flame
+        if $b_compose_flame -eq true; then
+            docker_compose $s_compose_flame # run docker compose
+            allCompose=("flame")
+            compose_verify
+        else
+            addtolog "INFO: flame compose is set to false"
         fi 
     else
         addtolog "WARNING: Hello world failed to test, cannot proceed with docker compse"
