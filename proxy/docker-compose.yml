@@ -5,15 +5,16 @@ networks:
     external: true
 
 services:
-# default account:
-  # admin@example.com
-  # changeme
   nginx-app:
+    # https://github.com/NginxProxyManager/nginx-proxy-manager
+      # # default account:
+        # admin@example.com
+        # changeme
     image: 'jc21/nginx-proxy-manager:latest'
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - '80:80' #<hostport>:<containerport>
+      - '81:81' #<hostport>:<containerport>
+      - '443:443' #<hostport>:<containerport>
     container_name: nginx
     hostname: nginx
     environment:
@@ -23,8 +24,8 @@ services:
       DB_MYSQL_PASSWORD: "npmpsw"
       DB_MYSQL_NAME: "npm"
     volumes:
-      - /e/docker/proxy/app/data:/data
-      - /e/docker/proxy/app/letsencrypt:/etc/letsencrypt
+      - /media/kyle/hcloud/docker/proxy/app/data:/data
+      - /media/kyle/hcloud/docker/proxy/app/letsencrypt:/etc/letsencrypt
     networks:
       - frontend
     extra_hosts:
@@ -32,6 +33,7 @@ services:
     restart: always
     
   nginx-db:
+    # https://github.com/jc21/docker-mariadb-aria
     image: 'jc21/mariadb-aria:latest'
     environment:
       MYSQL_ROOT_PASSWORD: 'npmpsw'
@@ -41,6 +43,6 @@ services:
     container_name: nginx-db
     hostname: nginx-db
     volumes:
-      - /e/docker/proxy/db/data/mysql:/var/lib/mysql
+      - /media/kyle/hcloud/docker/proxy/db/data/mysql:/var/lib/mysql
     networks:
       - frontend

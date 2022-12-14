@@ -6,13 +6,14 @@ networks:
 
 services:
   organizr:
+    # https://github.com/causefx/Organizr
     image: organizr/organizr:latest
     container_name: organizr
     hostname: organizr
     volumes:
-      - /e/docker/organizr/config:/config
+      - /media/kyle/hcloud/docker/organizr/config:/config 
     ports:
-      - 5817:80
+      - 5817:80 #<hostport>:<containerport>
     networks:
       - frontend
     restart: unless-stopped

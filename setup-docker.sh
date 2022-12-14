@@ -3,17 +3,17 @@
 #region config
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 b_install_docker=true #if true then docker and each compose will attempt to install on execution
-b_compose_portainer=true
+b_compose_portainer=false
 s_compose_portainer="${SCRIPT_DIR}/portainer/docker-compose.yml"
-b_compose_nginx=true
+b_compose_nginx=false
 s_compose_nginx="${SCRIPT_DIR}/proxy/docker-compose.yml"
 b_compose_nextcloud=false
 s_compose_nextcould="${SCRIPT_DIR}/nextcould/docker-compose.yml"
-b_compose_radarrsonarr=true
+b_compose_radarrsonarr=false
 s_compose_radarrsonarr="${SCRIPT_DIR}/radarrsonarr/docker-compose.yml"
 b_compose_qbittorrent=false
 s_compose_qbittorrent="${SCRIPT_DIR}/qbittorrent/docker-compose.yml"
-b_compose_flame=true
+b_compose_flame=false
 s_compose_flame="${SCRIPT_DIR}/flame/docker-compose.yml"
 b_compose_organizr=false
 s_compose_organizr="${SCRIPT_DIR}/organizr/docker-compose.yml"

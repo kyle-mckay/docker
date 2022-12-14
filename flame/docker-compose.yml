@@ -1,22 +1,23 @@
 version: '3.6'
-#https://github.com/pawelmalak/flame
-#/settings
-#/applications
-#/bookmarks
 networks:
   frontend:
     # add this if the network is already existing!
     external: true
 services:
   flame:
+    #https://github.com/pawelmalak/flame
+      # Has three main pages after domain
+      # /settings
+      # /applications
+      # /bookmarks
     image: pawelmalak/flame
     container_name: flame
     hostname: flame
     volumes:
-      - /e/docker/flame/data:/app/data
+      - /media/kyle/hcloud/docker/flame/data:/app/data 
       - /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration
     ports:
-      - 5005:5005
+      - 5005:5005 #<hostport>:<containerport>
 #    secrets:
 #      - password # optional but required for (1)
     environment:

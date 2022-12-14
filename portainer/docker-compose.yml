@@ -6,6 +6,7 @@ networks:
 
 services:
   portainer:
+    # https://github.com/portainer/portainer
     image: portainer/portainer-ce:latest
     container_name: portainer
     hostname: portainer
@@ -16,10 +17,8 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     volumes:
-      - /e/docker/portainer/data:/data
+      - /media/kyle/hcloud/docker/portainer/data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 9000:9000
-    networks:
-      - frontend
+      - 9000:9000 #<hostport>:<containerport>
     restart: always
