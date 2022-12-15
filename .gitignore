@@ -1,11 +1,13 @@
 
 organizr/config/*
+homepage/config/*
 proxy/app*/*
 proxy/db*/*
 portainer/data/*
 flame/data/*
-radarrsonarr/jackett/*
-radarrsonarr/radarr/*
-radarrsonarr/sonarr/*
+arr/jackett/*
+arr/prawlarr/*
+arr/radarr/*
+arr/sonarr/*
 test.sh
 log.txt
