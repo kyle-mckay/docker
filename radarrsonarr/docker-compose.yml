@@ -17,7 +17,7 @@ services:
       - PGID=1000
       - TZ=UTC
     volumes:
-      - /e/docker/radarrsonarr/sonarr/config:/config
+      - /e/docker/arr/sonarr/config:/config
       # Media HD - Windows
       - /d/anime:/anime 
       - /d/tv:/tv
@@ -27,7 +27,7 @@ services:
       - frontend
     ports:
       - 8989:8989 #<hostport>:<containerport>
-    restart: unless-stopped
+    restart: always
 
 
   radarr:
@@ -39,7 +39,7 @@ services:
       - PGID=1000
       - TZ=UTC
     volumes:
-      - /e/docker/radarrsonarr/radarr/config:/config
+      - /e/docker/arr/radarr/config:/config
       # Media HD - Windows
       - /d/movies:/movies
       - /d/downloads:/downloads
@@ -47,21 +47,20 @@ services:
       - frontend
     ports:
       - 7878:7878 #<hostport>:<containerport>
-    restart: unless-stopped
-    
-  jackett:
-    image: lscr.io/linuxserver/jackett:latest
-    container_name: jackett
-    hostname: jackett
+    restart: always
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    hostname: prowlarr
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
-      - AUTO_UPDATE=false #optional
     volumes:
-      - /e/docker/radarrsonarr/jackett/config:/config
-    networks:
-      - frontend  
+      - /e/docker/arr/prowlarr/config:/config
     ports:
-      - 9117:9117 #<hostport>:<containerport>
-    restart: unless-stopped
+      - 9696:9696
+    networks:
+      - frontend 
+    restart: always

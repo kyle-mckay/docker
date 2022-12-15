@@ -6,7 +6,7 @@ proxy/db*/*
 portainer/data/*
 flame/data/*
 arr/jackett/*
-arr/prawlarr/*
+arr/prowlarr/*
 arr/radarr/*
 arr/sonarr/*
 test.sh
