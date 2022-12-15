@@ -1,0 +1,67 @@
+---
+version: "2.1"
+
+networks:
+  frontend:
+    # add this if the network is already existing!
+    external: true
+
+# https://trash-guides.info/Sonarr/Sonarr-remote-path-mapping/ - Host download client is used, but services run in containers
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    hostname: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - /e/docker/radarrsonarr/sonarr/config:/config
+      # Media HD - Windows
+      - /d/anime:/anime 
+      - /d/tv:/tv
+      - /d/downloads:/downloads
+      
+    networks:
+      - frontend
+    ports:
+      - 8989:8989 #<hostport>:<containerport>
+    restart: unless-stopped
+
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    hostname: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - /e/docker/radarrsonarr/radarr/config:/config
+      # Media HD - Windows
+      - /d/movies:/movies
+      - /d/downloads:/downloads
+    networks:
+      - frontend
+    ports:
+      - 7878:7878 #<hostport>:<containerport>
+    restart: unless-stopped
+    
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    hostname: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - AUTO_UPDATE=false #optional
+    volumes:
+      - /e/docker/radarrsonarr/jackett/config:/config
+    networks:
+      - frontend  
+    ports:
+      - 9117:9117 #<hostport>:<containerport>
+    restart: unless-stopped
